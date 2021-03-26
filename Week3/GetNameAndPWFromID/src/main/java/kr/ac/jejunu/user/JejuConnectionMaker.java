@@ -2,16 +2,15 @@ package kr.ac.jejunu.user;
 
 import java.sql.*;
 
-//TODO: Fix DB Values
-public class HallaUserDao extends UserDao{
+public class JejuConnectionMaker implements IConnectionMaker {
 
     @Override
-    protected Connection getConnection() throws ClassNotFoundException, SQLException {
+    public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(
-                "jdbc:mysql://localhost/halla?" +
+                "jdbc:mysql://localhost/jeju?" +
                         "characterEncoding=utf-8&serverTimezone=UTC"
-                , "halla", "hallapw"
+                , "jeju", "jejupw"
         );
     }
 }
