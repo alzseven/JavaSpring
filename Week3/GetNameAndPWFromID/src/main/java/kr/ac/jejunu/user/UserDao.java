@@ -1,17 +1,18 @@
 package kr.ac.jejunu.user;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 public class UserDao {
 
-    private final IConnectionMaker connectionMaker;
+    private final DataSource dataSource;
 
-    public UserDao(IConnectionMaker connectionMaker){
-        this.connectionMaker = connectionMaker;
+    public UserDao(DataSource dataSource){
+        this.dataSource = dataSource;
     }
 
-    public User findById(Integer id) throws ClassNotFoundException, SQLException {
-        Connection connection = connectionMaker.getConnection();
+    public User findById(Integer id) throws SQLException {
+        Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "select * from  userinfo where id = ?"
         );
@@ -29,8 +30,8 @@ public class UserDao {
         return user;
     }
 
-    public void insert(User user) throws ClassNotFoundException, SQLException {
-        Connection connection = connectionMaker.getConnection();
+    public void insert(User user) throws SQLException {
+        Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "insert into userinfo (name, password) values (?, ?)"
                 , Statement.RETURN_GENERATED_KEYS
