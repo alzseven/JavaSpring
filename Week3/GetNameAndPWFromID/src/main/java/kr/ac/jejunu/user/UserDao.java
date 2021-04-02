@@ -134,30 +134,5 @@ public class UserDao {
                 throwables.printStackTrace();
             }
         }
-
-
-//        Connection connection = null;
-//        PreparedStatement preparedStatement = null;
-//        try {
-//            connection = dataSource.getConnection();
-//            preparedStatement = connection.prepareStatement(
-//                    "delete from userinfo where id =?"
-//                    , Statement.RETURN_GENERATED_KEYS
-//            );
-//            preparedStatement.setInt(1, id);
-//
-//            preparedStatement.executeUpdate();
-//        } finally {
-//            try {
-//                preparedStatement.close();
-//            } catch (Exception throwables) {
-//                throwables.printStackTrace();
-//            }
-//            try {
-//                connection.close();
-//            } catch (Exception throwables) {
-//                throwables.printStackTrace();
-//            }
-//        }
     }
 }
