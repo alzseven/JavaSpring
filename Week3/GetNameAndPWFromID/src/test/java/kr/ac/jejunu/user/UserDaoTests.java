@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 public class UserDaoTests {
@@ -22,13 +23,10 @@ public class UserDaoTests {
     }
 
     @Test
-    public void getJeju() throws SQLException, ClassNotFoundException {
+    public void getJeju() throws SQLException{
         Integer id = 1;
         String name = "JHP";
         String password = "JHPPW";
-
-//        DaoFactory daoFactory = new DaoFactory();
-//        userDao = daoFactory.userDao();
 
         User user = userDao.findById(id);
         assertThat(user.getId(), is(id));
@@ -38,16 +36,13 @@ public class UserDaoTests {
 
 
     @Test
-    public void insertJeju() throws SQLException, ClassNotFoundException{
+    public void insertJeju() throws SQLException{
         String name = "JHP";
         String password = "1111";
 
         User user = new User();
         user.setName(name);
         user.setPassword(password);
-
-//        DaoFactory daoFactory = new DaoFactory();
-//        userDao = daoFactory.userDao();
         userDao.insert(user);
 
         User insertedUser = userDao.findById(user.getId());
@@ -56,6 +51,45 @@ public class UserDaoTests {
         assertThat(insertedUser.getId(), is(user.getId()));
         assertThat(insertedUser.getName(), is(user.getName()));
         assertThat(insertedUser.getPassword(), is(user.getPassword()));
+    }
+
+    @Test
+    public void updateJeju() throws SQLException {
+        String name = "JHP";
+        String password = "1111";
+
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        userDao.insert(user);
+
+        user.setName("alz7");
+        user.setPassword("1234");
+
+        userDao.update(user);
+
+        User updatedUser = userDao.findById(user.getId());
+
+        assertThat(updatedUser.getId(), is(user.getId()));
+        assertThat(updatedUser.getName(), is(user.getName()));
+        assertThat(updatedUser.getPassword(), is(user.getPassword()));
+    }
+
+    @Test
+    public void deleteJeju() throws SQLException {
+        String name = "JHP";
+        String password = "1111";
+
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        userDao.insert(user);
+
+        userDao.delete(user.getId());
+
+        User deletedUser = userDao.findById(user.getId());
+
+        assertThat(deletedUser, nullValue());
     }
 
 //    @Test
