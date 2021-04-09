@@ -22,11 +22,17 @@ public class DaoFactory {
 
     @Bean
     public UserDao userDao() throws ClassNotFoundException {
-        return new UserDao(connectionMaker());
+        return new UserDao(jdbcContext());
     }
 
     @Bean
-    public DataSource connectionMaker() throws ClassNotFoundException {
+    public JdbcContext jdbcContext() throws ClassNotFoundException {
+        return new JdbcContext(dataSource());
+    }
+
+
+    @Bean
+    public DataSource dataSource() throws ClassNotFoundException {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
 
         dataSource.setDriverClass((Class<? extends Driver>) Class.forName(className));
