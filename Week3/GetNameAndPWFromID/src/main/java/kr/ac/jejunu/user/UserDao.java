@@ -6,27 +6,44 @@ import java.sql.*;
 public class UserDao {
     private final JdbcContext jdbcContext;
 
-    public UserDao(JdbcContext jdbcContext){
+    public UserDao(JdbcContext jdbcContext) {
         this.jdbcContext = jdbcContext;
     }
 
     public User findById(Integer id) throws SQLException {
-        StatementStrategy statementStrategy = new FindByIdStatementStrategy(id);
-        return jdbcContext.jdbcContextForFindById(statementStrategy);
+        String sql = "select * from  userinfo where id = ?";
+        Object[] params = new Object[]{id};
+        return findById(sql, params);
+    }
+
+    private User findById(String sql, Object[] params) throws SQLException {
+        return jdbcContext.jdbcContextForFindById(connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    sql
+            );
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(i + 1, params[i]);
+            }
+            return preparedStatement;
+        });
     }
 
     public void insert(User user) throws SQLException {
-        StatementStrategy statementStrategy = new InsertStatementStrategy(user);
-        jdbcContext.jdbcContextForInsert(user, statementStrategy);
+
+        String sql = "insert into userinfo (name, password) values (?, ?)";
+        Object[] params = new Object[]{user.getName(), user.getPassword()};
+        jdbcContext.insert(user, sql, params);
     }
 
     public void update(User user) throws SQLException {
-        StatementStrategy statementStrategy = new UpdateStatementStrategy(user);
-        jdbcContext.jdbcContextForUpdate(statementStrategy);
+        String sql = "update userinfo set name = ?, password =? where id =?";
+        Object[] params = new Object[]{user.getName(), user.getPassword(), user.getId()};
+        jdbcContext.update(sql, params);
     }
 
     public void delete(Integer id) throws SQLException {
-        StatementStrategy statementStrategy = new DeleteStatementStrategy(id);
-        jdbcContext.jdbcContextForUpdate(statementStrategy);
+        String sql = "delete from userinfo where id = ?";
+        Object[] params = new Object[]{id};
+        jdbcContext.update(sql, params);
     }
 }

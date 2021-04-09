@@ -16,14 +16,14 @@ public class UserDaoTests {
     static UserDao userDao;
 
     @BeforeAll
-    public static void setup(){
+    public static void setup() {
         ApplicationContext applicationContext
                 = new AnnotationConfigApplicationContext(DaoFactory.class);
-        userDao = applicationContext.getBean("userDao",UserDao.class);
+        userDao = applicationContext.getBean("userDao", UserDao.class);
     }
 
     @Test
-    public void getJeju() throws SQLException{
+    public void getJeju() throws SQLException {
         Integer id = 1;
         String name = "JHP";
         String password = "JHPPW";
@@ -36,7 +36,7 @@ public class UserDaoTests {
 
 
     @Test
-    public void insertJeju() throws SQLException{
+    public void insertJeju() throws SQLException {
         String name = "JHP";
         String password = "1111";
 

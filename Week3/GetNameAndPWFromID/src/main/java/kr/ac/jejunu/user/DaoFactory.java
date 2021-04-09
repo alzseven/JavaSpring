@@ -30,7 +30,6 @@ public class DaoFactory {
         return new JdbcContext(dataSource());
     }
 
-
     @Bean
     public DataSource dataSource() throws ClassNotFoundException {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
