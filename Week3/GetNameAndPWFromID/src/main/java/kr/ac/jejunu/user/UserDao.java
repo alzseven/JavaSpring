@@ -1,15 +1,20 @@
 package kr.ac.jejunu.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
 
+@Component
 public class UserDao {
+    // @Autowired - Property Injection
     private final JdbcTemplate jdbcTemplate;
 
+    // @Autowired - Constructor Injection, can be skipped
     public UserDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

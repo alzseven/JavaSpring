@@ -18,13 +18,13 @@ public class UserDaoTests {
 
     @BeforeAll
     public static void setup() {
-        // ClassPathXmlApplicationContext
-        ClassPathXmlApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("daoFactory.xml");
+//        // ClassPathXmlApplicationContext
+//        ClassPathXmlApplicationContext applicationContext =
+//                new ClassPathXmlApplicationContext("daoFactory.xml");
 
-//        // AnnotationConfigApplcationContext
-//        ApplicationContext applicationContext
-//                = new AnnotationConfigApplicationContext(DaoFactory.class);
+        // AnnotationConfigApplcationContext
+        ApplicationContext applicationContext
+                = new AnnotationConfigApplicationContext("kr.ac.jejunu");
         userDao = applicationContext.getBean("userDao", UserDao.class);
     }
 
