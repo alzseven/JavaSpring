@@ -1,5 +1,6 @@
 package kr.ac.jejunu.user;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -10,14 +11,15 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 @Component
+@RequiredArgsConstructor
 public class UserDao {
     // @Autowired - Property Injection
     private final JdbcTemplate jdbcTemplate;
 
-    // @Autowired - Constructor Injection, can be skipped
-    public UserDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+//    // @Autowired - Constructor Injection, can be skipped
+//    public UserDao(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     public User findById(Integer id) throws SQLException {
         String sql = "select * from  userinfo where id = ?";
