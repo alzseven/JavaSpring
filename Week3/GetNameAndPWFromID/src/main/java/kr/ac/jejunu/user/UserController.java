@@ -3,10 +3,7 @@ package kr.ac.jejunu.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,23 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
 @Controller
-@RequestMapping
+//@RequestMapping - For need of parent path
 @RequiredArgsConstructor
 public class UserController {
     private final UserDao userDao;
 
-    @RequestMapping("/user")
+//    @RequestMapping("/user")
+    @GetMapping(value = "/user")  // params =  "id=1" - only runs when id is 1
     public User getUser(@RequestParam("id") Integer id){
         System.out.println("***User***");
         return userDao.findById(id);
     }
 
-    @RequestMapping(path ="/upload", method = RequestMethod.GET)
+//    @RequestMapping(path ="/upload", method = RequestMethod.GET)
+    @GetMapping("/upload")
     public void upload(){
 
     } // View only
 
-    @RequestMapping(path = "/upload", method = RequestMethod.POST) // Case of binary file
+//    @RequestMapping(path = "/upload", method = RequestMethod.POST) // Case of binary file
+    @PostMapping("upload")
     public ModelAndView upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         String path = request.getServletContext().getRealPath("/")
                 + "/WEB-INF/static/" + file.getOriginalFilename();
