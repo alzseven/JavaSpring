@@ -24,13 +24,25 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <filter>
-        <filter-name>userFilter</filter-name>
-        <filter-class>kr.ac.jejunu.user.UserFilter</filter-class>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>userFilter</filter-name>
+        <filter-name>encodingFilter</filter-name>
         <url-pattern>*</url-pattern>
     </filter-mapping>
+    <!--    <filter>-->
+<!--        <filter-name>userFilter</filter-name>-->
+<!--        <filter-class>kr.ac.jejunu.user.UserFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>userFilter</filter-name>-->
+<!--        <url-pattern>*</url-pattern>-->
+<!--    </filter-mapping>-->
     <listener>
         <listener-class>kr.ac.jejunu.user.UserContextListener</listener-class>
     </listener>
